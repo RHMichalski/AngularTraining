@@ -1,0 +1,13 @@
+<div class="bar clearfix">
+  <form [formGroup]="addtaskForm" (ngSubmit)="onSubmit()">
+    <div style="float: left;">
+      <input [ngClass]="{'is-invalid': taskName?.invalid && taskName?.touched}" formControlName="taskName">
+      <div *ngIf="taskName?.invalid ">
+        <small *ngIf="taskName?.errors?.required && taskName?.touched " class="text-danger"><strong>Wprowadź tekst. </strong></small>
+        <small *ngIf="taskName?.errors?.forbiddenName" class="text-danger"><strong>Dozwolone są tylko litery i cyfry.</strong></small>
+      </div>
+    </div>
+    <button [disabled]="!addtaskForm.valid" class="btn btn-success" style="margin-left: 10px;
+    padding: 5px 15px;float: left;" type="submit">Dodaj</button>
+  </form>
+</div>

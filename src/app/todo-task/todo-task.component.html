@@ -1,0 +1,27 @@
+<div *ngIf="tasksList.length > 0; else noTask">
+  <ul>
+    <li
+      appDate
+      [dateCreated]="task.created"
+      *ngFor="let task of tasksList | sortName; let odd = odd"
+      [ngClass]="{ 'odd-li': odd === true, 'last-li': tasksList.length === 1 }"
+    >
+      <p>{{ task.name | transformTask: "!" }}</p>
+      <button type="button" class="btn btn-outline-danger" style="margin-top: -4px;" (click)="removeTask(task)">Usuń!</button>
+      <button type="button" class="btn btn-outline-success" style="margin-top: -4px;" (click)="doneTask(task)">Zrobione!</button>
+      <br>
+    </li>
+  </ul>
+</div>
+
+<ng-template #noTask
+  ><p
+    style="
+      border-radius: 10px 25px 10px 25px;
+      border: 2px solid #73ad21;
+      padding: 20px;
+    "
+  >
+    Brak zadań do wykonania!
+  </p></ng-template
+>

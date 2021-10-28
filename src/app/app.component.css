@@ -1,0 +1,117 @@
+.header {
+  text-align: right;
+  color: #fffff0;
+  padding: 5px 25px 5px;
+  font-weight: bold;
+}
+
+.topnavbar {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: #464646;
+  overflow: hidden;
+}
+
+.topnavbar a {
+  float: left;
+  padding: 12px 14px;
+  color: #fffff0;
+  text-decoration: none;
+}
+
+.topnavbar button {
+  background-image: url(src\assets\2x\outline_reorder_black_24dp_07t.png);
+  background-repeat: no-repeat;
+  width: 100%;
+  padding: 24px 14px;
+  background-color: #464646;
+  text-decoration: none;
+  color: inherit;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  display: none;
+}
+
+.topnavbar button:hover {
+  color: black;
+  background-color: #fffff0;
+}
+
+.topnavbar a:hover {
+  color: black;
+  background-color: #fffff0;
+}
+
+.topnavbar a.active {
+  color: black;
+  background-color: #d1d1ca;
+}
+
+.topnavbar a.active:hover {
+  color: black;
+  background-color: #fffff0;
+}
+
+.topnavbar a:last-of-type {
+  float: right;
+}
+
+.topnavbar a::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.footer {
+  text-align: center;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  size: 20px;
+  color: #fffff0;
+  background-color: #1f1f1f;
+  width: 100%;
+}
+
+@media screen and (max-width: 1000px) {
+  hr.divider {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .topnavbar a {
+    float: none;
+    width: 100%;
+    display: block;
+    position: static;
+  }
+  .topnavbar {
+    position: static;
+  }
+  .topnavbar button {
+    display: initial;
+  }
+
+  .MenuShow a {
+    display: block;
+  }
+
+  .MenuHide a {
+    display: none;
+  }
+
+  .footer h3,
+  h5 {
+    font-size: 0.6em;
+  }
+}
+
+@media screen and (max-height: 850px) {
+  .footer {
+    display: none;
+  }
+}

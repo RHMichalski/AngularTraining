@@ -1,0 +1,53 @@
+.odd-li {
+  background-color: #3d3d3d;
+}
+
+li{
+  border-radius: 25px 10px 25px 10px;
+  border: 2px solid #73AD21;
+  background: url(/assets/checked_32px.png) no-repeat left top; /* <-- change `left` & `top` too for extra control */
+  background-position: 10px 16px;
+  padding: 20px 50px 20px;
+  /* reset styles (optional): */
+  list-style: none;
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+p {
+  margin: 0px;
+  padding: 0px;
+  color: #fffff0;
+}
+
+li p:first-of-type{
+  display: block;
+  max-width: 80%;
+  height: 24px ;
+  overflow-x: hidden;
+  overflow-x: hidden;
+  float: left;
+}
+
+button{
+  float: right;
+  margin-left: 3px;
+  padding: 3px 6px;
+  border-radius: 5px;
+  color: #fffff0;
+  border: 2px solid #73AD21;
+}
+
+button::after{
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+ul {
+  list-style-position: inside;
+  margin: 0;
+  padding: 0;
+}
+

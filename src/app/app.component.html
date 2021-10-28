@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<div class="header">
+  <h1><strong>Lista zadań do wykonania.</strong></h1>
+</div>
+
+<div
+  class="topnavbar"
+  [ngClass]="{ 'MenuShow': bMenuHide === false, 'MenuHide': bMenuHide === true }"
+>
+  <button id="Menu" (click)="hideMenu()"></button>
+  <a [routerLinkActive]="['active']" routerLink="/Lista">LISTA</a>
+  <a href="https://www.w3schools.com/tags/default.asp" target="_blank">HTML</a>
+  <a href="https://www.w3schools.com/cssref/pr_class_float.asp" target="_blank"
+    >CSS</a
+  >
+  <a
+    href="https://www.w3schools.com/angular/angular_ref_directives.asp"
+    target="_blank"
+    >ANGULAR</a
+  >
+  <a [routerLinkActive]="['active']" routerLink="/Help">HELP</a>
+</div>
+
+<router-outlet></router-outlet>
+
+
+<!--
+   <p style="padding-bottom: 3000px">Simple text to expand website</p>
+-->
+<p style="padding-bottom: 80px"></p>
+<div class="footer">
+  <hr/>
+  <h3>Robert Michalski</h3>
+  <br>
+</div>

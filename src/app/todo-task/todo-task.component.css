@@ -1,0 +1,55 @@
+.odd-li {
+  background-color: #3d3d3d;
+}
+
+.last-li {
+  background-color: rgb(243, 190, 190);
+}
+
+li {
+  border-radius: 10px 25px 10px 25px;
+  border: 2px solid #73ad21;
+  padding: 20px;
+  margin-bottom: 5px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li p:first-of-type {
+  display: block;
+  max-width: 80%;
+  height: 24px;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  float: left;
+}
+
+
+
+button {
+  float: right;
+  margin-left: 3px;
+  padding: 3px 6px;
+  border-radius: 5px;
+  border: 2px solid #73ad21;
+}
+
+
+button::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+p {
+  margin: 0px;
+  padding: 0px;
+  color: #fffff0;
+}
+
+@media screen and (max-width: 500px) {
+}

@@ -1,0 +1,58 @@
+.AddTask {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 48px;
+}
+
+.leftcolumn {
+  box-sizing: border-box;
+  max-width: 45%;
+  min-width: 45%;
+  margin: 5px 0px;
+  float: left;
+}
+
+.rightcolumn {
+  box-sizing: border-box;
+  max-width: 45%;
+  min-width: 45%;
+  margin: 5px 0px;
+  float: right;
+}
+
+.maincontent::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+hr.divider {
+  display: none;
+  color: lightgreen;
+  height: 4px;
+}
+
+@media screen and (max-width: 1000px) {
+  .leftcolumn,
+  .rightcolumn {
+    float: none;
+    max-width: 100%;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+  hr.divider {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .AddTask {
+    position: static;
+  }
+}
+
+.httpErrorCode {
+  text-align: center;
+  margin: 5px;
+  color: #fffff0;
+}

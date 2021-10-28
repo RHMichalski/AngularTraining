@@ -1,0 +1,25 @@
+<div *ngIf="tasksDone.length > 0; else noTask">
+  <ul>
+    <li
+      appChecked
+      appDate
+      [dateCreated]="task.created"
+      [dateEnd]="task.end"
+      *ngFor="let task of tasksDone | sortName; let odd = odd"
+      [ngClass]="{ 'odd-li': odd === true }"
+    >
+      <p>{{ task.name | transformTask: " - zakończone !" }}</p>
+      <button type="button" class="btn btn-outline-light" style="margin-top: -4px; margin-right: -30px;" (click)="removeTask(task)">Usuń!</button>
+      <br/>
+    </li>
+  </ul>
+</div>
+
+<ng-template #noTask>
+  <p style="
+      border-radius: 25px 10px 25px 10px;
+      border: 2px solid #73ad21;
+      padding: 20px;
+    "
+  >Brak wykonanych zadań</p>
+</ng-template>
