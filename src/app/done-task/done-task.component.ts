@@ -3,7 +3,7 @@ import { Task } from './../model/Task';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-done-task',
@@ -17,7 +17,8 @@ export class DoneTaskComponent implements OnInit, OnDestroy {
 
   constructor(
     private httpService: HttpService,
-    private actRoute: ActivatedRoute
+    private actRoute: ActivatedRoute,
+    private router: Router
   ) {
     this.actRoute.data.pipe(takeUntil(this.ngUnsubscribe)).subscribe((data) => {
       this.tasksDone = data.tasks.filter((a: Task) => a.isDone === true);
@@ -25,7 +26,7 @@ export class DoneTaskComponent implements OnInit, OnDestroy {
   }
 
   removeTask(task: Task) {
-    this.httpService.deleteTask(task);
+    this.httpService.deleteTask(task).subscribe(() => { this.router.navigate(['/Lista']); });
   }
 
   ngOnInit(): void {}

@@ -1,89 +1,53 @@
-import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
-import { Injectable, OnChanges, OnInit } from '@angular/core';
+import { HttpClient, HttpErrorResponse  } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Task } from './../model/Task';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { Observable, of, throwError, BehaviorSubject } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
+
+
+const PATH_PREFIX = '/api';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpService {
-  constructor(private http: HttpClient) {
-    this.getTasks();
+  constructor(private http: HttpClient) {}
+
+  getTasks(): Observable<Array<Task>> {
+    return this.http.get<Array<Task>>('http://localhost:3000/posts').pipe(retry(3), catchError(this.handleError));
   }
 
-  private taskListObs = new BehaviorSubject<Array<Task>>([]);
-  tasks$ = this.taskListObs.asObservable();
-
-  private status = new BehaviorSubject<string>('');
-  status$ = this.status.asObservable();
-
-  getTasks() {
-    this.http.get<Array<Task>>('http://localhost:3000/posts').subscribe(
-      (tasks) => {
-        this.taskListObs.next(tasks);
-      },
-      (error) => {
-        this.status.next(error.name);
-        //console.log('getTasks ' + error.name);
-      },
-      () => {
-        this.status.next('');
-      }
-    );
+  addTask(task: Task): Observable<Task> {
+    return this.http.post<Task>(`http://localhost:3000/posts`, task).pipe(retry(1), catchError(this.handleError));
   }
 
-  addTask(task: Task) {
-    //console.log('AddTask ' + task.name);
-    this.http.post<Task>('http://localhost:3000/posts', task).subscribe(
-      () => {},
-      (error) => {
-        this.status.next(error.name);
-        //console.log('getTasks ' + error.name);
-      },
-      () => {
-        this.getTasks();
-      }
-    );
+  deleteTask(task: Task) : Observable<Task> {
+   return this.http.delete<Task>('http://localhost:3000/posts/' + task.id).pipe(retry(1), catchError(this.handleError));
   }
 
-  deleteTask(task: Task) {
-    this.http.delete('http://localhost:3000/posts/' + task.id).subscribe(
-      () => {},
-      (error) => {
-        this.status.next(error.name);
-        //console.log('getTasks ' + error.name);
-      },
-      () => {
-        this.getTasks();
-      }
-    );
-  }
 
-  updateTask(task: Task) {
-    task.end =
-      new Date().toLocaleDateString() + ', ' + new Date().toLocaleTimeString();
+  updateTask(task: Task): Observable<Task> {
+    task.end = new Date().toLocaleDateString() + ', ' + new Date().toLocaleTimeString();
     task.isDone = true;
+    console.log(task);
 
-    this.http
-      .put<Task>('http://localhost:3000/posts/' + task.id, task)
-      .subscribe(
-        () => {},
-        (error) => {
-          this.status.next(error.name);
-          //console.log('getTasks ' + error.name);
-        },
-        () => {
-          this.getTasks();
-        }
-      );
+    return this.http.put<Task>('http://localhost:3000/posts/' + task.id + '/', task).pipe(retry(1), catchError(this.handleError));
   }
 
-  getStatus(): Observable<string> {
-    return this.status$;
-  }
 
-  getTaskListObs(): Observable<Array<Task>> {
-    return this.tasks$;
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong.
+      console.error(
+        `Backend returned code ${error.status}, body was: `, error.error);
+    }
+    // Return an observable with a user-facing error message.
+    return throwError(
+      'Something bad happened; please try again later.');
   }
 
 
@@ -105,6 +69,8 @@ export class HttpService {
   cd D:\Angular_Projects\FakeRestApi
 
   json-server --watch db.json
+
+  json-server db.json --routes routes.json
 
   Now if you go to http://localhost:3000/posts/1, you'll get
 

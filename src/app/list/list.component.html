@@ -2,12 +2,6 @@
   <app-add-task></app-add-task>
 </div>
 
-<span class="httpErrorCode" *ngIf="HttpStatus !== '' ">
-  <p style="font-size: 25px; font-weight: bold; color: darkred;">Brak połączenia z bazą danych!</p>
-  <p><strong>{{HttpStatus}}</strong></p>
-  <p>Przejdź do sekcji <a routerLink="/Help">Help</a></p>
-  </span>
-
 <div class="maincontent">
   <div class="leftcolumn">
     <app-todo-task></app-todo-task>

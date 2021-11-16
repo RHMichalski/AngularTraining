@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Task } from '../model/Task';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-todo-task',
@@ -12,27 +12,26 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class TodoTaskComponent implements OnInit {
   private ngUnsubscribe = new Subject();
+  tasksList: Array<Task> = [];
 
   constructor(
     private httpService: HttpService,
-    private actRoute: ActivatedRoute
+    private actRoute: ActivatedRoute,
+    private router: Router
   ) {
     this.actRoute.data.pipe(takeUntil(this.ngUnsubscribe)).subscribe((data) => {
       this.tasksList = data.tasks.filter((a: Task) => a.isDone === false);
     });
-    console.log(this.tasksList);
   }
 
   ngOnInit(): void {}
 
-  tasksList: Array<Task> = [];
-
   removeTask(task: Task) {
-    this.httpService.deleteTask(task);
+    this.httpService.deleteTask(task).subscribe(() => { this.router.navigate(['/Lista']); });
   }
 
   doneTask(task: Task) {
-    this.httpService.updateTask(task);
+    this.httpService.updateTask(task).subscribe(() => { this.router.navigate(['/Lista']); });
   }
 
   ngOnDestroy(): void {
